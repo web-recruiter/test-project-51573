@@ -1,0 +1,50 @@
+{
+    "$id": "newProduct",
+    "type": "object",
+    "properties": {
+        "nftMetadataID": {
+            "type": "string",
+            "isNotEmpty": true,
+            "minLength": 6
+        },
+        "productTitle": {
+            "type": "string",
+            "isNotEmpty": true,
+            "minLength": 2,
+            "maxLength": 50
+        },
+        "productDescription": {
+            "type": "string",
+            "isNotEmpty": true,
+            "minLength": 25,
+            "maxLength": 1000
+        },
+        "productCategory": {
+            "type": "string",
+            "isNotEmpty": true
+        },
+        "productPublished": {
+            "type": "boolean"
+        },
+        "productPermalink": {
+            "type": "string"
+        },
+        "owner": {
+            "type": "string",
+            "isNotEmpty": true
+        }
+    },
+    "errorMessage": {
+        "properties": {
+            "productPublished": "Should be either true or false",
+            "productCategory": "Category not selected"
+        }
+    },
+    "required": [
+        "nftMetadataID",
+        "productTitle",
+        "productDescription",
+        "owner",
+        "productCategory"
+    ]
+}

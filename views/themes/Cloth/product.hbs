@@ -1,0 +1,90 @@
+{{> themes/Cloth/front-menu}}
+<div class="product-layout col-sm-12">
+    <div class="row">
+        <div class="col-sm-12 mr-auto">
+            <div class="title-image-container float-left p-3">
+                <img src="{{result.base_uri}}" id="product-title-image" class="product-title-image img-fluid nft-image-open" alt="...">
+            </div>
+            <div class="p-3">
+                <h1 class="product-title text-truncate">{{result.productTitle}}</h1>
+                {{#if result.is_bidding}}
+                <h4 class="product-price mp-0">{{currencySymbol config.peerplaysAssetSymbol}} {{result.minimum_price}} - {{currencySymbol config.peerplaysAssetSymbol}} {{result.maximum_price}}</h4>
+                <div class="productOptions d-inline">
+                    <p class="product-option-text mb-2">{{ @root.__ "Bid price" }}</p>
+                    <div class="input-group w-40 mb-3">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-primary qty-btn-minus" type="button">-</button>
+                        </div>
+                        <input type="number" step="any" class="form-control add-color text-center" id="product_bid" maxlength="5" value="{{result.minimum_price}}">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary qty-btn-plus" type="button">+</button>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary product-add-to-cart w-40" type="button">{{ @root.__ "Bid" }}</button>
+                {{else}}
+                <input type="hidden" id="product_bid" value="{{result.minimum_price}}">
+                <h4 class="product-price mp-0">{{currencySymbol config.peerplaysAssetSymbol}} {{result.minimum_price}}</h4>
+                <button class="btn btn-primary btn-block product-add-to-cart w-40" type="button">{{ @root.__ "Buy" }}</button>
+                {{/if}}
+                <div>Fee: {{bidFee}} {{config.peerplaysAssetSymbol}}</div>
+                <div class="body_text">
+                    {{{fixTags result.productDescription}}}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{#if config.showRelatedProducts}}
+        {{#if relatedProducts}}
+        <div class="col-sm-12 mt-5">
+            <h4>Related NFTs</h4>
+            <div class="row">
+                {{#each relatedProducts}}
+                <div class="col-md-3">
+                    <div>
+                        {{#if productPermalink}}
+                            <div class="product-wrapper">
+                                <a href="/product/{{this.productPermalink}}/{{this.id}}">
+                                    <div class="vertical-center img-thumbnail">
+                                        <img class="img-fluid" src="{{this.base_uri}}" alt="...">
+                                    </div>
+                                    <h3 class="product-title product-title-home top-pad-10">
+                                        {{this.productTitle}}
+                                    </h3>
+                                </a>
+                            </div>
+                        {{else}}
+                            <a href="/product/{{this._id}}/{{this.id}}">
+                                <div class="vertical-center img-thumbnail">
+                                    <img class="img-fluid" src="{{this.base_uri}}" alt="...">
+                                </div>
+                                <h3 class="product-title product-title-home top-pad-10">
+                                    {{this.productTitle}}
+                                </h3>
+                            </a>
+                        {{/if}}
+                        <h3 class="product-price mp-0 text-center">
+                            {{currencySymbol ../config.peerplaysAssetSymbol}}{{formatAmount minimum_price}}
+                        </h3>
+                        <p class="text-center">
+                            {{#if productPermalink}}
+                            <a class="btn btn-primary" href="/product/{{this.productPermalink}}/{{this.id}}">{{ @root.__ "View" }}</a>
+                            {{else}}
+                            <a class="btn btn-primary" href="/product/{{this._id}}/{{this.id}}">{{ @root.__ "View" }}</a>
+                            {{/if}}
+                        </p>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+        {{/if}}
+    {{/if}}
+</div>
+<input type="hidden" id="productId" value="{{result._id}}">
+<input type="hidden" id="offerId" value="{{result.offerId}}">
+<input type="hidden" id="maxPrice" value="{{result.maximum_price}}">
+<input type="hidden" id="minPrice" value="{{result.minimum_price}}">
+<input type="hidden" id="ppyBalance" value="{{balance}}">
+<input type="hidden" id="bidFee" value="{{fee}}">
+<input type="hidden" id="currencySymbol" value="{{currencySymbol config.peerplaysAssetSymbol}}">

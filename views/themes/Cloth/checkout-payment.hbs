@@ -1,0 +1,48 @@
+<div class="col-md-10 offset-md-1 col-sm-12">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a href="">Payment</a></li>
+        </ol>
+    </nav>
+    <div class="row">
+        {{#if paymentMessage}}
+            <p class="text-danger text-center">{{paymentMessage}}</p>
+        {{/if}}
+        <div class="col-md-6">
+            <div class="card top-marg-15">
+                <div class="card-body">
+                    <h5 class="card-title">{{ @root.__ "Cart contents" }}</h5>
+                    <ul class="list-group bottom-pad-15">
+                        <li class="list-group-item">
+                            Adding {{@root.config.peerplaysAssetSymbol}} {{@root.session.cart.ppyAmount}} for
+                            {{@root.config.currencySymbol}}{{@root.session.totalCartAmount}}
+                        </li>
+                    </ul>
+                    <h5 class="card-title">{{ @root.__ "Customer details" }}</h5>
+                    <ul class="list-group bottom-pad-15">
+                        <li class="list-group-item">
+                            {{@root.session.customerFirstname}} {{@root.session.customerLastname}} - 
+                            {{@root.session.customerEmail}}
+                        </li>
+                    </ul>
+                    <div id="payment-form" class="payment-form">
+                    {{#if session.customerPresent}}
+                        <ul class="list-group bottom-pad-15">
+                            {{#each config.paymentGateway}}
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        {{> (partial this) }}
+                                    </div>
+                                </div>
+                            </li>
+                            {{/each}}
+                        </ul>
+                    {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

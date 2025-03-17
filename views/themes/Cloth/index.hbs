@@ -1,0 +1,87 @@
+{{> themes/Cloth/front-menu}}
+<div class="productsWrapper col-sm-12 col-md-8 offset-md-2 index-main">
+    {{#if filtered}}
+        <div class="product-layout product-results col-sm-12">
+            {{#ifCond @root.paginateUrl '==' 'category'}}
+            <h1>{{ @root.__ "Category" }}: <strong>{{@root.searchTerm}}</strong></h1>
+            {{else}}
+            <h1>{{ @root.__ "Search results" }}: <strong>{{@root.searchTerm}}</strong></h1>
+            {{/ifCond}}
+        </div>
+    {{/if}}
+    <div class="row product-layout">
+        {{#ifCond results.length '==' 0}}
+            <div class="col-sm-12">
+                <p class="text-danger">{{ @root.__ "No products found" }}</p>
+            </div>
+        {{/ifCond}}
+        {{#each results}}
+            <div class="{{perRowClass ../config.productsPerRow}}">
+                <div class="thumbnail">
+                    {{#if productPermalink}}
+                        <div class="product-wrapper">
+                            <a href="/product/{{this.productPermalink}}/{{this.id}}">
+                                <div class="vertical-center img-thumbnail">
+                                    {{#if base_uri}}
+                                        <img class="img-fluid" src="{{this.base_uri}}" alt="...">
+                                    {{else}}
+                                        <img class="img-fluid" src="/uploads/placeholder.png" alt="...">
+                                    {{/if}}
+                                </div>
+                                <h3 class="product-title product-title-home top-pad-10">
+                                    {{this.productTitle}}
+                                </h3>
+                            </a>
+                        </div>
+                    {{else}}
+                        <a href="/product/{{this._id}}/{{this.id}}">
+                            <div class="vertical-center img-thumbnail">
+                                {{#if base_uri}}
+                                    <img class="img-fluid" src="{{this.base_uri}}" alt="...">
+                                {{else}}
+                                    <img class="img-fluid" src="/uploads/placeholder.png" alt="...">
+                                {{/if}}
+                            </div>
+                            <h3 class="product-title product-title-home top-pad-10">
+                                {{this.productTitle}}
+                            </h3>
+                        </a>
+                    {{/if}}
+                    {{#if variants}}
+                        <div class="col-md-12">
+                            {{#if @root.config.showHomepageVariants}}
+                            <select id="productVariant-{{this._id}}" class="productVariant form-control mb-2">
+                            {{#each variants}}
+                                <option value="{{this._id}}" data-price="{{this.price}}">{{this.title}} - {{currencySymbol @root.config.currencySymbol}}{{this.price}}</option>
+                            {{/each}}
+                            </select>
+                            {{else}}
+                            <h4 class="product-price mp-0 text-center">
+                                {{currencySymbol @root.config.currencySymbol}}{{formatAmount variants.0.price}}
+                            </h4>
+                            {{/if}}
+                        </div>
+                    {{else}}
+                      {{#if bid_price}}
+                        <h4 class="product-price mp-0 text-center">
+                            {{currencySymbol @root.config.peerplaysAssetSymbol}} {{math (formatAmount bid_price.amount) '/' 100000}}
+                        </h4>
+                         {{else}}
+                           <h4 class="product-price mp-0 text-center">
+                            {{currencySymbol @root.config.peerplaysAssetSymbol}} {{formatAmount minimum_price.amount}}
+                        </h4>
+                         {{/if}}
+                    {{/if}}
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>
+ <div class="spinner-border text-primary" style="position:fixed;top:60%;left:50%" id="loder" role="status">
+            <span class="sr-only">Loading...</span>
+</div>
+<input type="hidden" id="itemsPerPage" value="{{productsPerPage}}" >
+<input type="hidden" id="pageNum" value="{{pageNum}}">
+<input type="hidden" id="totalItemCount" value="{{totalProductCount}}">
+<input type="hidden" id="paginateUrl" value="{{paginateUrl}}">
+<input type="hidden" id="searchTerm" value="{{searchTerm}}">

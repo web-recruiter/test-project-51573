@@ -1,0 +1,55 @@
+{
+    "$id": "editProduct",
+    "type": "object",
+    "properties": {
+        "productId": {
+            "type": "string"
+        },
+        "nftMetadataID": {
+            "type": "string",
+            "isNotEmpty": true,
+            "minLength": 6
+        },
+        "productTitle": {
+            "type": "string",
+            "isNotEmpty": true,
+            "minLength": 2,
+            "maxLength": 50
+        },
+        "productDescription": {
+            "type": "string",
+            "isNotEmpty": true,
+            "minLength": 25,
+            "maxLength": 1000
+        },
+        "productCategory": {
+            "type": "string",
+            "isNotEmpty": true
+        },
+        "productPublished": {
+            "type": "boolean"
+        },
+        "productPermalink": {
+            "type": "string"
+        },
+        "owner": {
+            "type": "string",
+            "isNotEmpty": true
+        }
+    },
+    "errorMessage": {
+        "isNotEmpty": "This is my custom error message",
+        "properties": {
+            "productPrice": "Should be a full 2 decimal value. Eg: 10.99",
+            "productPublished": "Should be either true or false",
+            "productComment": "Should be either true or false"
+        }
+    },
+    "required": [
+        "productId",
+        "nftMetadataID",
+        "productTitle",
+        "productDescription",
+        "owner"
+    ]
+}
