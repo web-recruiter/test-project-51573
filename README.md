@@ -13,7 +13,7 @@
 1. Clone the repository
 
 ```bash
-Make sure you are on Node version 10.x (recommended)
+Make sure you are on Node version 14.x (recommended)
 ```
 2. Go to the project directory and install dependencies.
 

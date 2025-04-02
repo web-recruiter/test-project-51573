@@ -1,5 +1,5 @@
 {
-  "name": "Test Project",
+  "name": "TestProject",
   "version": "0.1.0",
   "private": false,
   "scripts": {
@@ -22,7 +22,7 @@
     }
   },
   "engines": {
-    "node": "10"
+    "node": "14"
   },
   "dependencies": {
     "@adyen/api-library": "^2.1.7",
@@ -67,6 +67,7 @@
     "object-hash": "^2.0.1",
     "paypal-rest-sdk": "^1.6.9",
     "rand-token": "^0.4.0",
+    "request": "^2.88.2",
     "rimraf": "^2.7.1",
     "sanitize-html": "^1.20.1",
     "sitemap": "^1.6.0",
